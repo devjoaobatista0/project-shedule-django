@@ -9,7 +9,7 @@ class Contact(models.Model):
     last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
     email = models.EmailField(max_length=250, blank=True) #Permite que o campo fica vazio
-    cretead_date = models.DateTimeField(default=timezone.now)
+    created_date = models.DateTimeField(default=timezone.now)
     description = models.TextField(blank = True)
 
     def __str__(self) -> str:
