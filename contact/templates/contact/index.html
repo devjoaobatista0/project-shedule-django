@@ -1,7 +1,43 @@
 {% extends "global/base.html" %}
 
 {% block content %}
-    {% for contact in contacts %}
-        {{contact.first_name}} <br>
-    {% endfor %}
+<div class="resposive-table">
+    <table class="contacts-table">
+        <caption class="table-caption"> <!-- titulo da tabela -->
+            Contacts
+        </caption>
+        <thead> <!-- cabeçalho da tabela -->
+            <tr class="table-row-header"> <!-- linha da tabela -->
+                <th class="table-header">ID</th> <!-- celulas de cabeçalho -->
+                <th class="table-header">First Name</th>
+                <th class="table-header">Phone</th>
+                <th class="table-header">E-mail</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for contact in contacts %}
+            <tr class="table-row">
+                <td class="table-cel"> <!-- celulas de dados -->
+                    <a class="table-link" href="{% url 'contact:contact' contact.id %}"> <!-- namespace + nomedaurl-->
+                        {{ contact.id }}
+                    </a>
+                </td>
+                <td class="table-cel">
+                    {{ contact.first_name }}
+                </td>
+                <td class="table-cel">
+                    {{ contact.phone }}
+                </td>
+                <td class="table-cel">
+                    {{ contact.email }}
+                </td>
+                <td class="table-cel">
+                    {{ contact.id }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock content %}

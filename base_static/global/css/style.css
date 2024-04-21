@@ -155,10 +155,12 @@
     color: var(--link-dark-color);
     transition: color var(--transition-fast) ease-in-out;
     text-decoration: none;
+    
   }
   
   .table-link:hover {
     color: var(--clr-black);
+    text-decoration: underline;
   }
   
   @media (min-width: 600px) {
