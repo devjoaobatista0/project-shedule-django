@@ -6,7 +6,11 @@ from contact import views
 app_name = 'contact'
 
 urlpatterns = [
-    path('<int:contact_id>/', views.contact, name = 'contact' ), #NOVA URL RECENDO O PARAMETRO PASSANDO O TIPO INT 'ID'
     path('search', views.search, name = 'search' ), 
     path('', views.index, name = 'index' ),
+
+    #contact (CRUD)
+    path('contact/<int:contact_id>/', views.contact, name = 'contact' ), #NOVA URL RECENDO O PARAMETRO PASSANDO O TIPO INT 'ID'
+    path('contact/create/', views.create, name = 'create' ), #NOVA URL RECENDO O PARAMETRO PASSANDO O TIPO INT 'ID'
+     
 ]

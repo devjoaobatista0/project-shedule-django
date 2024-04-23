@@ -1,25 +1,35 @@
-from django.shortcuts import render, redirect
-from contact.models import Contact
-from django.http import Http404
+from django.core.paginator import Paginator
 from django.db.models import Q
+from django.shortcuts import render, redirect
+from django.http import Http404
+from contact.models import Contact
+
+
+
+
 # Create your views here.
 def index(request):
     contacts = Contact.objects\
             .filter(show=True)\
-            .order_by('-id')[:10] #Ordenando por ordem descrecente e configurando o model 'show' como true para quando criar o contato, começar sempre
+            .order_by('-id') #Ordenando por ordem descrecente e configurando o model 'show' como true para quando criar o contato, começar sempre
                                                                  #mostrando, mas se eu quiser desmarcar o 'show' o contato nao aparecer na table.
-                                                                 
-    print(contacts.query) #VENDO TODAS AS QUERYS QUE O SERVIDOR FEZ.
+    
+    paginator = Paginator(contacts, 10, allow_empty_first_page=False)  #FUNCAO PAGINATOR DO DJANGO 
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)  
+   
+                                                     
+    # print (contacts.query) #VENDO TODAS AS QUERYS QUE O SERVIDOR FEZ.
     
     
     context = {
-        'contacts': contacts,
+        'page_obj': page_obj,    #PASSANDO O PAGE OBJ PRO CONTEXT, POIS AGORA É O PAGE OBJ QUE PEGA OS CONTACTS  
         'site_tittle': 'Contatos - '
     }
     return render(
         request,
         'contact/index.html',
-        context
+        context  #DADOS
     )
     
 def search(request):
@@ -33,11 +43,13 @@ def search(request):
             .order_by('-id') #Ordenando por ordem descrecente e configurando o model 'show' como true para quando criar o contato, começar sempre
                                   #mostrando, mas se eu quiser desmarcar o 'show' o contato nao aparecer na table.
     #FILTER 'icontais' = ele passa um (case-sensitive) usado em buscas para nao diferenciar letra maiuscula de minuscla e tenta procurar o que o usuario digitar pelo contexto                                                             
-    print(contacts.query) #VENDO TODAS AS QUERYS QUE O SERVIDOR FEZ.
-    
+    #print(contacts.query) #VENDO TODAS AS QUERYS QUE O SERVIDOR FEZ.
+    paginator = Paginator(contacts, 10, allow_empty_first_page=False)  #FUNCAO PAGINATOR DO DJANGO 
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)  
     
     context = {
-        'contacts': contacts,
+        'page_obj': page_obj,
         'site_tittle': 'Contatos - '
     }
     return render(
@@ -72,3 +84,4 @@ def contact(request, contact_id): #PASSANDO  O contact_id na url atraves do get
         context,
         
     )
+    
