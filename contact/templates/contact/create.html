@@ -16,6 +16,10 @@
                         <label for="{{ field.id_for_label  }}">{{field.label}}</label>
                         {{field}} <!--INPUTS DO FORM-->
                         {{ field.errors }} <!--QUANDO CONTER ERROS DO FORM-->
+                        
+                        {% if field.help_text %}
+                            <p class="help_text">{{field.help_text}}</p>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>
