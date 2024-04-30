@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from contact.models import Contact
 
@@ -64,12 +64,9 @@ def contact(request, contact_id): #PASSANDO  O contact_id na url atraves do get
     
     single_contact = Contact.objects.filter(id=contact_id, show =True ).first() #RETORNA O UM UNICO VALOR
     
-    #single_contact = get_list_or_404(       #POR ALGUM MOTIVO ESSA FUNC NAO ESTAVA RETORNANDO OS DADOS.
-        #Contact,pk=contact_id, show = True)
+    single_contact = get_object_or_404(Contact,pk=contact_id, show = True)
     
     
-    if single_contact is None:
-        raise Http404()
     
     site_tittle = f'{single_contact.first_name} {single_contact.last_name} - ' #COLOCANDO O FIRST E O LAST NAME DO SINGLE CONTATO NO TITTLE DA URL
     

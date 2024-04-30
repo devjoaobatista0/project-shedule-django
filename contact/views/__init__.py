@@ -1,5 +1,6 @@
 from .contact_views import *
 from .contact_forms import *   #IMPORTANDO MINHA VIEW DO CREATE CONTACT
+from .user_forms import *
 
 """O arquivo __init__.py em um diretório Python serve para indicar ao interpretador Python que o diretório deve ser considerado um pacote Python. Isso significa que ele pode conter
 módulos e subpacotes. Sem o arquivo __init__.py, o Python não reconhecerá o diretório como um pacote e não permitirá a importação de seus conteúdos.

@@ -1,3 +1,6 @@
+
+#SCRIPT PARA GERAR CONTATOS FAKE.
+
 import os
 import sys
 from datetime import datetime
