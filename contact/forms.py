@@ -8,12 +8,13 @@ from django.contrib.auth import password_validation
 class ContactForm(forms.ModelForm): #CLASSE DO PYTHON PARA CRIAR FORM. CRIANDO UM FORM BASEADO NO NOSSO MODEL JA FEITO.
   
     picture = forms.ImageField(       # REFAZENDO O MODEL 'PICTURE' POIS NO NORMAL DO DJANGO ELE DEIXA O LINK DA IMAGEM ENVIADA EXPOSTO. 
-                                      # estou dizendo que o unico widget que quero no campo é o de escolha de arquivo.
-        widget=forms.FileInput(
+        required=False,                            # estou dizendo que o unico widget que quero no campo é o de escolha de arquivo.
+        widget=forms.FileInput( 
             attrs={
                 'accept': 'image/*',
             }
         )
+       
     )
      
      # PEGA OS CAMPO DIRETO DO MODELS JA COM OS PARAMETROS DE CADA UM, 'description por exemplo '
@@ -44,10 +45,10 @@ class ContactForm(forms.ModelForm): #CLASSE DO PYTHON PARA CRIAR FORM. CRIANDO U
     def clean_first_name(self):
         first_name = self.cleaned_data.get('first_name')
         
-        if first_name == 'ABC':
+        if first_name.lower() == 'abc':
             self.add_error(
                 'first_name',
-                ValidationError('Veio do clean_campo', code='invalid')
+                ValidationError('Ta brincando de alfabeto ?', code='invalid')
             )
             
         return first_name  #SE NAO HOUVER ERRO SO VAI RETORNAR O FIRST_NAME.

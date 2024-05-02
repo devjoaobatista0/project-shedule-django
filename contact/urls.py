@@ -22,7 +22,6 @@ urlpatterns = [
     path('user/logout/', views.logout_view, name = 'logout' ), #NOVA URL RECENDO O PARAMETRO PASSANDO O TIPO INT 'ID'
     
     #logged in user
-
     path('user/update/', views.user_update, name = 'user_update' ), #NOVA URL RECENDO O PARAMETRO PASSANDO O TIPO INT 'ID'  DEPENDE DO USUARIO LOGADO
     
 ]

@@ -31,7 +31,7 @@ class Contact(models.Model):
     )
     owner = models.ForeignKey(
         User, 
-        on_delete = models.SET_NULL,
+        on_delete = models.SET_NULL,  #quando eu deletar o owner fazendo que o owner daquele contato fique NULL
         blank=True,
         null = True,
     )
