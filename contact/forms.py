@@ -126,6 +126,31 @@ class RegisterUpdateForm(forms.ModelForm):
             'first_name', 'last_name', 'email',
             'username',
         )
+    
+    def save(self, commit= True):    #SOBREESCREVENDO ESSE METODO PARA PEGAR OS DADOS DO MEU USUARIO SEM SALVAR.
+        cleaned_data = self.cleaned_data
+        user = super().save(commit=False)
+        
+        password = cleaned_data.get('password1') 
+        
+        if password:
+            user.set_password(password) #SETANDO O PASSWORD DE FORMA CRIPTOGRAFADA. PARA A MUDANÇA DE PASSWORD.
+            
+        if commit:
+            user.save()
+        
+        
+    def clean(self):  # SOBREESCREVENDO O CLEAN E CHECANDO SE O PASS 1 É IGUAL AO PASS 2.
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        
+        if password1 or password2:
+            if password1 != password2:
+                self.add_error(
+                    'password2',
+                    ValidationError('As senhas devem coincidir')
+                )
+        return super().clean() 
         
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -140,7 +165,7 @@ class RegisterUpdateForm(forms.ModelForm):
             
         return email
     
-    def clean_password1(self):
+    def clean_password1(self):  #CHECANDO SE O PASS TEM ERROS
         password1 = self.cleaned_data.get('password1')
         
         if password1:
