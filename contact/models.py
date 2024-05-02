@@ -23,6 +23,7 @@ class Contact(models.Model):
     description = models.TextField(blank = True)
     show = models.BooleanField(default=True)
     picture = models.ImageField(blank=True, upload_to='pictures/%y/%m/') #CRIANDO A FOLDER PICTURES COM O ANO E MES ATUAL
+    
     category = models.ForeignKey(  #criando model da categoria dependendo de contact
         Category, #Model da categoria 
         on_delete=models.SET_NULL, #quando eu deletar a categoria fazendo que o campo categoria daquele contato fique NULL

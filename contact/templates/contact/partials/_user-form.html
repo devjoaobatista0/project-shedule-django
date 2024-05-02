@@ -1,0 +1,40 @@
+<form action="{{form_action}}" method="POST">
+    {% csrf_token %}
+
+    <div class="form-content">
+
+        {% for field in form %}     <!--GERANDO MEU FORM DINAMICAMENTE COMO O 'FORM' DO DJANGO.-->
+            <div class="form-group">
+                <label for="{{ field.id_for_label  }}">{{field.label}}</label>
+                {{field}} <!--INPUTS DO FORM-->
+                {{ field.errors }} <!--QUANDO CONTER ERROS DO FORM-->
+                
+                {% if field.help_text %}
+                    <p class="help_text">{{field.help_text}}</p>
+                {% endif %}
+
+                
+            </div>
+
+            
+        {% endfor %}
+    </div>
+
+    <div class="form-content">
+        <div class="form-group">
+            
+            <button class="btn" type="submit">Send</button>
+        </div>
+    </div>
+
+    {% if form.non_field_errors %} <!--SE NAO TIVER ALGUM ERRO ATRELADO AO CAMPO ELE NAO VAI EXIBIR-->
+        <div class="form-content">
+            <div class="form-group">
+                <div class="message error">
+                    {{ form.non_field_errors }} <!--PEGA DIRETO OS ERROS DA CLASSE DE ERRO NO FORM. -->
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</form>
