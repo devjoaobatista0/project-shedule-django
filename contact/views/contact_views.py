@@ -5,22 +5,24 @@ from contact.models import Contact
 
 
 
-
-# Create your views here.
 def index(request):
     contacts = Contact.objects\
             .filter(show=True)\
             .order_by('-id') #Ordenando por ordem descrecente e configurando o model 'show' como true para quando criar o contato, começar sempre
                                                                  #mostrando, mas se eu quiser desmarcar o 'show' o contato nao aparecer na table.
     
-    paginator = Paginator(contacts, 10, allow_empty_first_page=False)  #FUNCAO PAGINATOR DO DJANGO 
+    paginator = Paginator(contacts, 10, allow_empty_first_page=True)  #FUNCAO PAGINATOR DO DJANGO 
     page_number = request.GET.get("page")
+
+    #try:
     page_obj = paginator.get_page(page_number)  
-   
+    #except PageNotAnInteger:
+        
+    #except EmptyPage:
+        #page_obj = paginator.page(1)
+        #page_obj = paginator.page(paginator.num_pages)
                                                      
     # print (contacts.query) #VENDO TODAS AS QUERYS QUE O SERVIDOR FEZ.
-    
-    
     context = {
         'page_obj': page_obj,    #PASSANDO O PAGE OBJ PRO CONTEXT, POIS AGORA É O PAGE OBJ QUE PEGA OS CONTACTS  
         'site_tittle': 'Contatos - '
@@ -43,7 +45,7 @@ def search(request):
                                   #mostrando, mas se eu quiser desmarcar o 'show' o contato nao aparecer na table.
     #FILTER 'icontais' = ele passa um (case-sensitive) usado em buscas para nao diferenciar letra maiuscula de minuscla e tenta procurar o que o usuario digitar pelo contexto                                                             
     #print(contacts.query) #VENDO TODAS AS QUERYS QUE O SERVIDOR FEZ.
-    paginator = Paginator(contacts, 10, allow_empty_first_page=False)  #FUNCAO PAGINATOR DO DJANGO 
+    paginator = Paginator(contacts, 10, allow_empty_first_page=True)  #FUNCAO PAGINATOR DO DJANGO 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)  
     
