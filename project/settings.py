@@ -131,7 +131,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 
-BASE_DIR / 'base_static'-
+# Additional directories to look for static files
+STATICFILES_DIRS = [
+    BASE_DIR / 'base_static',
+]
 
 STATIC_URL = '/static/'
 #data/web/static

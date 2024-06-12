@@ -1,3 +1,7 @@
-from django.test import TestCase
+# from django.test import TestCase
+# from django.urls import reverse
 
-# Create your tests here.
+# class ContactURLsTest(TestCase):
+#     def test_contact_index_url_is_correct(self):
+#         url = reverve('contact:index')
+#         self.assertEqual(url, '/')
